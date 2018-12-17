@@ -2,12 +2,27 @@ package jp.ac.uryukyu.ie.e185719;
 
 import jdk.jfr.DataAmount;
 
+/**
+ * 名前、HP、攻撃などのHero,Enemyで同じ行動をするものを共通化したクラス。
+ */
 public class LivingThing {
+    /**
+     * String name; 名前
+     * int hitPoint; HP
+     * int attack; 攻撃力
+     * boolean dead; 生死状態を判別/true=死亡
+     */
     private String name;
     private int hitPoint;
     private int attack;
     private boolean dead;
 
+    /**
+     * コンストラクタ。名前、HP、攻撃力を指定する。
+     * @param name　名前
+     * @param hitPoint　HP
+     * @param attack 攻撃力
+     */
     public LivingThing(String name, int hitPoint, int attack){
         this.name = name;
         this.hitPoint = hitPoint;
@@ -41,6 +56,11 @@ public class LivingThing {
         return attack;
     }
 
+    /**
+     * 攻撃判定。
+     * attackに応じて乱数でダメージを算出し、wounded()でダメージ処理をする。
+     * @param opponent　コンストラクタの情報。
+     */
     public void attack(LivingThing opponent) {
         if(dead==false) {
             int damage = (int) (Math.random() * attack);
@@ -52,6 +72,11 @@ public class LivingThing {
         }
     }
 
+    /**
+     * ダメージ判定。
+     * attack()によって算出されたダメージをHPから引く。
+     * @param damage　ダメージ量
+     */
     public void wounded(int damage){
         hitPoint -= damage;
         if( hitPoint < 0 ) {
